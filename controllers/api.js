@@ -10,6 +10,8 @@ const moment = require('moment');
 
 router.get('/scrape/:category', (req, res, next) => {
   const category = req.params.category;
+  console.log(category);
+  const articles = [];
   axios
     .get(`https://www.nytimes.com/section/${category}`)
     .then(res => {
@@ -19,6 +21,7 @@ router.get('/scrape/:category', (req, res, next) => {
 
       $('.css-ye6x8s').each(function() {
         const article = {};
+        article.category = category;
         let title = $(this)
           .find('h2')
           .text();
@@ -68,19 +71,15 @@ router.get('/scrape/:category', (req, res, next) => {
           return;
         }
 
-        // let html = $(this).html();
-        // fs.writeFile('test.html', html, err => {
-        //   console.log('written');
-        // });
-
-        console.log(article);
-        // db.Article.create(article)
-        //   .then(result => {
-        //     console.log(result);
-        //   })
-        //   .catch(err => {
-        //     next(err);
-        //   });
+        db.Article.create(article)
+          .then(result => {
+            if (result) {
+              articles.push(result);
+            }
+          })
+          .catch(err => {
+            next(err);
+          });
       });
     })
     .catch(err => {
@@ -89,8 +88,6 @@ router.get('/scrape/:category', (req, res, next) => {
       }
       next(err);
     });
-
-  res.send(true);
 });
 
 module.exports = router;

@@ -1,8 +1,9 @@
 import $ from 'jquery';
 import Scrape from './models/scrape';
+import { elements } from './views/elements';
 
-const scrapeArticles = async () => {
-  const scrape = new Scrape('hi');
+const scrapeArticles = async category => {
+  const scrape = new Scrape(category);
   try {
     await scrape.scrapeForArticles();
     return console.log(scrape);
@@ -11,4 +12,10 @@ const scrapeArticles = async () => {
   }
 };
 
-getTestResult();
+elements.category.on('click', function(e) {
+  let click = $(this);
+  if (click.hasClass('category-btn')) {
+    const category = click.data('category');
+    scrapeArticles(category);
+  }
+});
