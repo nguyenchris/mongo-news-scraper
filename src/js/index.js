@@ -1,14 +1,14 @@
 import $ from 'jquery';
-import Search from './models/search';
+import Scrape from './models/scrape';
 
-const getTestResult = async () => {
-  const search = new Search('hi')
+const scrapeArticles = async () => {
+  const scrape = new Scrape('hi');
   try {
-    await search.getTest()
-    return console.log(search)
+    await scrape.scrapeForArticles();
+    return console.log(scrape);
   } catch (err) {
     console.log(err);
   }
-}
+};
 
-getTestResult()
+getTestResult();

@@ -11,9 +11,8 @@ const app = express();
 
 const PORT = process.env.PORT || 3000;
 
-
 // app.use(helmet());
-app.use(logger('dev'))
+app.use(logger('dev'));
 app.use(
   express.urlencoded({
     extended: true
@@ -29,9 +28,8 @@ app.get('/', (req, res) => {
 
 app.use('/api', apiRoutes);
 
-
 mongoose
-  .connect('mongodb://localhost/unit18Populater', { useNewUrlParser: true })
+  .connect('mongodb://localhost/mongo-scraper', { useNewUrlParser: true })
   .then(res => {
     app.listen(PORT, () => {
       console.log(`Listening to port ${PORT}`);
