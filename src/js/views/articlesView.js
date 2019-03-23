@@ -15,8 +15,7 @@ const renderArticles = article => {
               <div class="_3-collection-item w-dyn-item w-col w-col-3">
               <a href="${link}" class="posts-image w-inline-block" target="_blank"><img
                   src="${image}"
-                  alt="" sizes="(max-width: 479px) 100vw, (max-width: 767px) 92vw, (max-width: 991px) 46vw, 22vw"
-                  srcset="${image} 500w, ${image} 800w, ${image} 1080w, ${image} 1600w, ${image} 1700w" /></a>
+                  alt=""/></a>
               <div class="post-info-text">
                 <a href="${link}" class="category-link" target="_blank">${category}</a>
                 <a href="${link}" class="post-title w-inline-block" target="_blank">
