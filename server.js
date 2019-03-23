@@ -2,7 +2,7 @@ const express = require('express');
 const path = require('path');
 const helmet = require('helmet');
 const compression = require('compression');
-const logger = require('morgan');
+// const logger = require('morgan');
 const mongoose = require('mongoose');
 
 const apiRoutes = require('./controllers/api');
@@ -11,8 +11,11 @@ const app = express();
 
 const PORT = process.env.PORT || 3000;
 
+const MONGODB_URI =
+  process.env.MONGODB_URI || 'mongodb://localhost/mongo-scraper';
+
 // app.use(helmet());
-app.use(logger('dev'));
+// app.use(logger('dev'));
 app.use(
   express.urlencoded({
     extended: true
@@ -36,7 +39,7 @@ app.use((error, req, res, next) => {
 });
 
 mongoose
-  .connect('mongodb://localhost/mongo-scraper', { useNewUrlParser: true })
+  .connect(MONGODB_URI, { useNewUrlParser: true })
   .then(res => {
     app.listen(PORT, () => {
       console.log(`Listening to port ${PORT}`);
