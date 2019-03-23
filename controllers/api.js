@@ -80,7 +80,6 @@ router.get('/scrape/:category', (req, res, next) => {
             console.log(err);
           });
       });
-      console.log('ALLLLLLL ARTICLES', articlesArr);
       res.json(articlesArr);
     })
     .catch(err => {
