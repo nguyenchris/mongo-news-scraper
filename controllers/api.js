@@ -10,12 +10,11 @@ const moment = require('moment');
 
 router.get('/scrape/:category', (req, res, next) => {
   const category = req.params.category;
-  console.log(category);
-  const articles = [];
+  const articlesArr = [];
   axios
     .get(`https://www.nytimes.com/section/${category}`)
-    .then(res => {
-      const $ = cheerio.load(res.data, {
+    .then(response => {
+      const $ = cheerio.load(response.data, {
         normalizeWhitespace: true
       });
 
@@ -46,7 +45,7 @@ router.get('/scrape/:category', (req, res, next) => {
         let modImage;
         if (image) {
           image.includes('thumbWide')
-            ? (modImage = image.replace('thumbWide', 'superJumbo'))
+            ? (modImage = image.replace('thumbWide', 'threeByTwoSmallAt2X'))
             : (modImage = image);
 
           modImage.includes('quality=30')
@@ -71,16 +70,18 @@ router.get('/scrape/:category', (req, res, next) => {
           return;
         }
 
+        articlesArr.push(article);
+
         db.Article.create(article)
           .then(result => {
-            if (result) {
-              articles.push(result);
-            }
+            console.log(result);
           })
           .catch(err => {
-            next(err);
+            console.log(err);
           });
       });
+      console.log('ALLLLLLL ARTICLES', articlesArr);
+      res.json(articlesArr);
     })
     .catch(err => {
       if (!err.statusCode) {

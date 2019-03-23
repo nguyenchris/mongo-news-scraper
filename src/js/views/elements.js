@@ -2,5 +2,6 @@ import $ from 'jquery';
 
 export const elements = {
   category: $('.category-btn'),
-  articlesContainer: $('.wrapper')
+  articlesContainer: $('.article-view'),
+  articlesContainerTop: $('.articles-view-top')
 };
