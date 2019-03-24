@@ -3,7 +3,7 @@
 
 <head>
   <meta charset="utf-8" />
-  <title>Sports News Scraper | {{title}}</title>
+  <title>Sports News Scraper</title>
   <meta content="width=device-width, initial-scale=1" name="viewport" />
   <style>
     body {
@@ -14,10 +14,13 @@
       text-rendering: optimizeLegibility;
     }
   </style>
-  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="css/style.css">
 </head>
 
 <body>
+
+
+
   <div data-collapse="medium" data-animation="default" data-duration="400" class="navigation w-nav">
     <div class="navigation-container">
       <a href="/" class="logo w-inline-block w--current"><img
@@ -28,36 +31,48 @@
           <div class="navigation-link-text">Home</div>
           <div class="navigation-hover"></div>
         </a>
-        <a href="/saved-articles" class="navigation-link w-inline-block">
-          <div class="navigation-link-text">Saved Articles</div>
+        <a href="/latest-posts" class="navigation-link w-inline-block">
+          <div class="navigation-link-text">Latest</div>
           <div class="navigation-hover"></div>
         </a>
-        {{#if activeLogin}}
-        <a href="/signup" class="navigation-link w-inline-block">
-          <div class="navigation-link-text">Signup</div>
+        <a href="/about" class="navigation-link w-inline-block">
+          <div class="navigation-link-text">About</div>
           <div class="navigation-hover"></div>
         </a>
-        {{/if}}
-        {{#if activeSignup}}
-        <a href="/login" class="navigation-link w-inline-block">
-          <div class="navigation-link-text">Login</div>
-          <div class="navigation-hover"></div>
-        </a>
-        {{/if}}
       </nav>
-      {{#if isLoggedIn}}
-      <a href="/logout" class="navigation-link w-inline-block">
-        <div class="navigation-link-text">Logout</div>
-        <div class="navigation-hover"></div>
-      </a>
-      {{/if}}
       <div class="menu-button w-nav-button">
         <div class="icon-2 w-icon-nav-menu"></div>
       </div>
     </div>
   </div>
 
-  {{{body}}}
+
+
+<div class="login-form">
+  <div class="form-block">
+    <div class="login-info-text">
+      Signup
+    </div>
+    <div class="w-form form-signup">
+      <label for="name" class="w-form-label">Name</label>
+      <input type="text" id="name" class="w-input">
+      <label for="email" class="w-form-label">Email</label>
+      <input type="text" class="w-input" id="email">
+      <label for="password" class="w-form-label">Password</label>
+      <input type="password" class="w-input" id="password">
+      <label for="confirm" class="w-form-label">Confirm Password</label>
+      <input type="password" class="w-input" id="confirm">
+      <input type="submit" value="Submit" data-wait="Signing up..." class="submit-button w-button">
+    </div>
+    <div class="w-form-fail">
+      Incorrect
+    </div>
+    <div class="login-info-subtitle">
+      Already have an account? <a href="/login">Login</a>
+    </div>
+  </div>
+</div>
+
 
 
   <div class="footer">
@@ -135,9 +150,11 @@
       </div>
     </div>
   </div>
+
+
+
   <script src="https://d1tdp7z6w94jbb.cloudfront.net/js/jquery-3.3.1.min.js"></script>
   <script src="https://uploads-ssl.webflow.com/5c9475e1a934ec607e594d07/js/webflow.27d3358a8.js"></script>
-  <script src="/js/bundle.js"></script>
 </body>
 
 </html>

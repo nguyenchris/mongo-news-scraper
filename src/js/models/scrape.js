@@ -7,7 +7,7 @@ export default class Scrape {
 
   async scrapeForArticles() {
     try {
-      const res = await axios(`/api/scrape/${this.category}`);
+      const res = await axios(`/news/scrape/${this.category}`);
       this.scrapes = res.data;
     } catch (error) {
       console.log(error);

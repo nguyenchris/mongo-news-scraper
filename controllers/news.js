@@ -1,5 +1,4 @@
 const express = require('express');
-const router = express.Router();
 const cheerio = require('cheerio');
 const axios = require('axios');
 const db = require('../models/index');
@@ -8,7 +7,7 @@ const moment = require('moment');
 
 // Cateogries: Sports, travel, realestate, us, world, business, technology, science, food, health, jobs, politics
 
-router.get('/scrape/:category', (req, res, next) => {
+exports.getScrape = (req, res, next) => {
   const category = req.params.category;
   const articlesArr = [];
   axios
@@ -88,6 +87,4 @@ router.get('/scrape/:category', (req, res, next) => {
       }
       next(err);
     });
-});
-
-module.exports = router;
+};
