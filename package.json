@@ -7,9 +7,10 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server.js",
     "dev": "webpack --mode development",
-    "watch": "concurrently \"webpack-dev-server --mode development --open \"npm nodemon",
+    "watch": "concurrently \"nodemon server.js\" \"webpack-dev-server --mode development --open\"",
     "build": "webpack --mode production",
-    "nodemon": "nodemon server.js"
+    "nodemon": "nodemon server.js",
+    "devserver": "webpack-dev-server --mode development --open"
   },
   "repository": {
     "type": "git",

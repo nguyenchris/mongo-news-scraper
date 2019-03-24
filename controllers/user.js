@@ -20,22 +20,27 @@ exports.getSignup = (req, res, next) => {
 exports.postLogin = (req, res, next) => {
   const email = req.body.email;
   const password = req.body.password;
-  const submittedUSer = req.body;
+  const submittedUser = req.body;
+  const errorMsg = {
+    error: 'Email or password is incorrect.'
+  };
+  console.log(submittedUser);
+
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
-    res.status(422);
+    return res.status(422).json({ error: errors.array()[0].msg });
+  }
+  if (!submittedUser) {
+    return res.status(422).json(errorMsg);
   }
 
-  console.log(email);
-  console.log(password);
-  console.log(submittedUSer);
   db.User.findOne({
     email: email
   })
     .then(user => {
       console.log(user);
-      if (user) {
-        return res.json(false);
+      if (!user) {
+        return res.status(422).json(errorMsg);
       }
       bcrypt
         .compare(password, user.password)
@@ -43,11 +48,9 @@ exports.postLogin = (req, res, next) => {
           if (doMatch) {
             req.session.user = user;
             req.session.isLoggedIn = true;
-            return req.session.save(() => {
-              res.redirect('/');
-            });
+            return res.status(201).json('Success');
           }
-          return res.status(422).json(false);
+          return res.status(422).json(errorMsg);
         })
         .catch(err => {
           console.log(err);
@@ -70,7 +73,7 @@ exports.postSignup = (req, res, next) => {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
     console.log(errors.array());
-    return res.status(422);
+    return res.status(422).json({ error: errors.array()[0].msg });
   }
   bcrypt
     .hash(password, 10)
@@ -83,9 +86,9 @@ exports.postSignup = (req, res, next) => {
       return user.save();
     })
     .then(result => {
-      console.log(result);
-      req.user = result;
-      res.redirect('/');
+      req.session.user = result;
+      req.session.isLoggedIn = true;
+      res.status(201).json('Success');
     })
     .catch(err => {
       const error = new Error(err);

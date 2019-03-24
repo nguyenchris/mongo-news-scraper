@@ -7,7 +7,7 @@ const logger = require('morgan');
 const mongoose = require('mongoose');
 const session = require('express-session');
 const MongoDBStore = require('connect-mongodb-session')(session);
-
+const db = require('./models/index');
 const newsRoutes = require('./routes/news');
 const userRoutes = require('./routes/user');
 const indexRoute = require('./routes/index-route');
@@ -63,7 +63,7 @@ app.use((req, res, next) => {
   if (!req.session.user) {
     return next();
   }
-  User.findById(req.session.user._id)
+  db.User.findById(req.session.user._id)
     .then(user => {
       req.user = user;
       next();
@@ -82,7 +82,7 @@ app.use((error, req, res, next) => {
   const status = error.statusCode || 500;
   const message = error.message;
   const data = error.data;
-  res.status(status).json({ message: message, data: data });
+  res.status(status).json({ error: message, data: data });
 });
 
 mongoose

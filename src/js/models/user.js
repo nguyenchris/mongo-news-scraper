@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { invalidCredentials } from '../views/errorViews';
 
 export default class User {
   constructor(name, email, password) {
@@ -7,19 +8,29 @@ export default class User {
     this.password = password;
   }
 
-  loginUser() {
+  static loginUser(user) {
     axios
-      .post(`/login`, {
-        name: this.name,
-        email: this.email,
-        password: this.password
-      })
+      .post(`/login`, user)
       .then(result => {
-        this.isLoggedIn = res.data;
-        console.log(this);
+        if (result.status == 201) return window.location.assign('/');
       })
-      .catch(error => {
-        console.log(error);
+      .catch(err => {
+        if (err.response) {
+          return invalidCredentials(err.response.data.error);
+        }
+      });
+  }
+
+  static signupUser(user) {
+    axios
+      .post(`/signup`, user)
+      .then(result => {
+        if (result.status == 201) return window.location.assign('/');
+      })
+      .catch(err => {
+        if (err.response) {
+          return invalidCredentials(err.response.data.error);
+        }
       });
   }
 }

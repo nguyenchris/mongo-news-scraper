@@ -10,15 +10,18 @@ module.exports = {
   devServer: {
     contentBase: './dist',
     proxy: {
-      '/api': 'http://127.0.0.1:3000'
+      '/': {
+        target: 'http://localhost:3000/',
+        changeOrigin: true
+      }
     }
   },
-  plugins: [
-    new HtmlWebpackPlugin({
-      filename: 'index.html',
-      template: './src/index.html'
-    })
-  ],
+  // plugins: [
+  //   new HtmlWebpackPlugin({
+  //     filename: 'index.html',
+  //     template: './src/index.html'
+  //   })
+  // ],
   module: {
     rules: [
       {

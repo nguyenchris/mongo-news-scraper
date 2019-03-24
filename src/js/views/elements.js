@@ -8,5 +8,6 @@ export const elements = {
   formEmail: $('#email'),
   formPassword: $('#password'),
   formConfirm: $('#confirm'),
-  formSubmit: $('.submit-button')
+  formSubmit: $('.submit-button'),
+  formFail: $('.w-form-fail')
 };
