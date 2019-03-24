@@ -29,6 +29,16 @@ const renderArticles = article => {
                   <a href="${link}" class="post-author" target="_blank">${author}</a>
                 </div>
               </div>
+                <div class="comments">
+                  <div class="post-author">
+                    <span id="comments-num">0</span>  Comments
+                </div>
+              <div class="post-author">
+                <div class="new-comment">
+                  Post Comment
+                </div>
+                </div>
+              </div>
             </div>
   `;
   appendElement(elements.articlesContainerTop, markup);

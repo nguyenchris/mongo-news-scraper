@@ -2677,7 +2677,7 @@ figcaption {
 .post-author {
   font-family: 'Libre Franklin', sans-serif;
   color: #000;
-  font-size: 10px;
+  font-size: 11px;
   line-height: 12px;
   font-weight: 600;
   letter-spacing: 1px;
@@ -2703,6 +2703,30 @@ figcaption {
 
 .post-author-text.cc-small-thumbnail {
   margin-top: 0px;
+}
+
+div.comments {
+  display: flex;
+  justify-content: space-between;
+}
+
+div.comments .post-author {
+  margin-top: 10px;
+  color: rgb(121, 121, 121);
+  font-size: 11px;
+  cursor: pointer;
+  float: left;
+}
+
+div.comments .new-comment {
+  float: right;
+  /* /* animation-duration: 0.5s; */
+  transition: 0.3s ease;
+}
+
+div.comments .new-comment:hover {
+  color: black;
+  transform: translateX(-8px);
 }
 
 .post-author-text.cc-center {

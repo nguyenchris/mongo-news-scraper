@@ -44,13 +44,13 @@
           <div class="navigation-hover"></div>
         </a>
         {{/if}}
+        {{#if isLoggedIn}}
+        <a href="/logout" class="navigation-link w-inline-block">
+          <div class="navigation-link-text">Logout</div>
+          <div class="navigation-hover"></div>
+        </a>
+        {{/if}}
       </nav>
-      {{#if isLoggedIn}}
-      <a href="/logout" class="navigation-link w-inline-block">
-        <div class="navigation-link-text">Logout</div>
-        <div class="navigation-hover"></div>
-      </a>
-      {{/if}}
       <div class="menu-button w-nav-button">
         <div class="icon-2 w-icon-nav-menu"></div>
       </div>
