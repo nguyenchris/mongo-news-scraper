@@ -2720,7 +2720,6 @@ div.comments .post-author {
 
 div.comments .new-comment {
   float: right;
-  /* /* animation-duration: 0.5s; */
   transition: 0.3s ease;
 }
 
@@ -2982,6 +2981,50 @@ a.summary {
 }
 
 .category-wrapper a {
+  transition: opacity 300ms ease, color 300ms ease;
+}
+
+.page-btn-wrapper {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -webkit-flex-wrap: wrap;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+  -ms-flex-align: center;
+  align-items: center;
+  width: 220px;
+  margin: auto;
+}
+
+.page-btn {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  padding: 20px 20px;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+  -ms-flex-align: center;
+  align-items: center;
+}
+
+.page-btn-wrapper:hover a {
+  opacity: 0.3;
+}
+
+.page-btn-wrapper a {
   transition: opacity 300ms ease, color 300ms ease;
 }
 

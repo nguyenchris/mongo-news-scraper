@@ -44,6 +44,43 @@ const renderArticles = article => {
   appendElement(elements.articlesContainerTop, markup);
 };
 
-export const renderArticlesView = articles => {
-  articles.forEach(renderArticles);
+const createButton = (page, type) => {
+  return `
+    <a class="button w-button page-btn" data-goto="${
+      type === 'prev' ? page - 1 : page + 1
+    }">${type === 'prev' ? 'prev Page' : 'next page'}</a>
+`;
+};
+
+const renderButtons = (page, numResults, resPerPage) => {
+  const pages = Math.ceil(numResults / resPerPage);
+  console.log(pages);
+  console.log(page);
+  let button;
+  if (page === 1 && pages >= 1) {
+    // Only button to go to next page
+    button = createButton(page, 'next');
+  } else if (page < pages) {
+    // Both buttons
+    button = `
+            ${createButton(page, 'prev')}
+            ${createButton(page, 'next')}
+        `;
+  } else if (page === pages && pages > 1) {
+    // Only button to go to prev page
+    button = createButton(page, 'prev');
+  }
+
+  let finalButton = `<div class="page-btn-wrapper">${button}</div>`;
+
+  document
+    .querySelector('.section-title-text')
+    .insertAdjacentHTML('beforeend', finalButton);
+};
+
+export const renderArticlesView = (articles, page = 1, resPerPage = 9) => {
+  const start = (page - 1) * resPerPage;
+  const end = page * resPerPage;
+  renderButtons(page, articles.length, resPerPage);
+  articles.slice(start, end).forEach(renderArticles);
 };
