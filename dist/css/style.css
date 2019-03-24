@@ -3206,6 +3206,36 @@ a.summary {
   align-items: stretch;
 }
 
+.nav-title {
+  font-size: 30px;
+  text-decoration: none;
+  color: black;
+}
+
+.a-nav-title {
+  text-decoration: none;
+}
+
+a.cc-footer {
+  text-decoration: none;
+}
+
+.nav-title:hover {
+  color: rgb(131, 131, 131);
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.nav-title {
+  font-size: 30px;
+  text-decoration: none;
+}
+.cc-footer .nav-title {
+  text-decoration: none;
+  color: white;
+  outline: none;
+}
+
 .login-wrapper {
   display: -webkit-box;
   display: -webkit-flex;

@@ -3,7 +3,7 @@ const path = require('path');
 const helmet = require('helmet');
 const compression = require('compression');
 const expressHbs = require('express-handlebars');
-const logger = require('morgan');
+// const logger = require('morgan');
 const mongoose = require('mongoose');
 const session = require('express-session');
 const MongoDBStore = require('connect-mongodb-session')(session);
@@ -25,8 +25,8 @@ const store = new MongoDBStore({
   collection: 'sessions'
 });
 
-// app.use(helmet());
-app.use(logger('dev'));
+app.use(helmet());
+// app.use(logger('dev'));
 app.engine(
   'hbs',
   expressHbs({
