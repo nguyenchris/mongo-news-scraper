@@ -2,6 +2,7 @@ const express = require('express');
 const path = require('path');
 const helmet = require('helmet');
 const compression = require('compression');
+const expressHbs = require('express-handlebars');
 // const logger = require('morgan');
 const mongoose = require('mongoose');
 
@@ -16,6 +17,16 @@ const MONGODB_URI =
 
 // app.use(helmet());
 // app.use(logger('dev'));
+app.engine(
+  'hbs',
+  expressHbs({
+    layoutsDir: 'views/layouts/',
+    defaultLayout: 'main-layout',
+    extname: 'hbs'
+  })
+);
+app.set('view engine', 'hbs');
+
 app.use(
   express.urlencoded({
     extended: true
@@ -25,9 +36,12 @@ app.use(express.json());
 app.use(express.static(path.join(__dirname, '/dist')));
 
 app.get('/', (req, res) => {
-  res.sendFile('index.html');
+  res.render('index');
 });
 
+app.get('/login', (req, res) => {
+  res.render('login');
+});
 app.use('/api', apiRoutes);
 
 app.use((error, req, res, next) => {
