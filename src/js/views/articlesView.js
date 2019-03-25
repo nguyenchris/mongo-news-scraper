@@ -73,9 +73,7 @@ const renderButtons = (page, numResults, resPerPage) => {
 
   let finalButton = `<div class="page-btn-wrapper">${button}</div>`;
 
-  document
-    .querySelector('.section-title-text')
-    .insertAdjacentHTML('beforeend', finalButton);
+  document.querySelector('.pagination-btns').innerHTML = finalButton;
 };
 
 export const renderArticlesView = (articles, page = 1, resPerPage = 9) => {

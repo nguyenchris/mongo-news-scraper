@@ -24,7 +24,6 @@ exports.postLogin = (req, res, next) => {
   const errorMsg = {
     error: 'Email or password is incorrect.'
   };
-  console.log(submittedUser);
 
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
@@ -38,7 +37,6 @@ exports.postLogin = (req, res, next) => {
     email: email
   })
     .then(user => {
-      console.log(user);
       if (!user) {
         return res.status(422).json(errorMsg);
       }
@@ -75,20 +73,29 @@ exports.postSignup = (req, res, next) => {
     console.log(errors.array());
     return res.status(422).json({ error: errors.array()[0].msg });
   }
-  bcrypt
-    .hash(password, 10)
-    .then(hashedPassword => {
-      const user = new db.User({
-        name: name,
-        email: email,
-        password: hashedPassword
-      });
-      return user.save();
-    })
-    .then(result => {
-      req.session.user = result;
-      req.session.isLoggedIn = true;
-      res.status(201).json('Success');
+
+  db.User.findOne({
+    email: email
+  })
+    .then(fetchedUser => {
+      if (fetchedUser) {
+        return res.status(422).json({ error: 'Email is already taken.' });
+      }
+      bcrypt
+        .hash(password, 10)
+        .then(hashedPassword => {
+          const user = new db.User({
+            name: name,
+            email: email,
+            password: hashedPassword
+          });
+          return user.save();
+        })
+        .then(result => {
+          req.session.user = result;
+          req.session.isLoggedIn = true;
+          res.status(201).json('Success');
+        });
     })
     .catch(err => {
       const error = new Error(err);

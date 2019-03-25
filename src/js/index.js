@@ -30,26 +30,40 @@ elements.category.on('click', function(e) {
   }
 });
 
+$('.form-wrap').keyup(function(e) {
+  e.preventDefault();
+  const keycode = e.keyCode ? e.keyCode : e.which;
+  if (keycode == '13') {
+    const isLogin = $(this)
+      .children()
+      .hasClass('form-login');
+    checkForm(isLogin);
+  }
+});
+
 elements.formSubmit.on('click', function(e) {
   e.preventDefault();
-  let login;
   const isLogin = $(this)
     .parents()
     .hasClass('form-login');
-  const isSignup = $(this)
-    .parents()
-    .hasClass('form-signup');
+  checkForm(isLogin);
+});
+
+function checkForm(isLogin) {
   const user = {
     email: elements.formEmail.val().trim(),
     password: elements.formPassword.val().trim()
   };
-  if (user.email.indexOf('@') == -1 || user.email.length < 3) {
+  if (
+    user.email.indexOf('@') == -1 ||
+    user.email.length < 3 ||
+    user.email.indexOf('.') == -1
+  ) {
     return invalidCredentials('Enter a valid email');
   }
   if (user.password.length < 5) {
     return invalidCredentials('Invalid email or password');
   }
-
   if (isLogin) {
     return User.loginUser(user);
   } else {
@@ -62,4 +76,4 @@ elements.formSubmit.on('click', function(e) {
     }
     return User.signupUser(user);
   }
-});
+}
