@@ -105,7 +105,6 @@ exports.getNews = (req, res, next) => {
         .limit(perPage);
     })
     .then(articles => {
-      console.log('LENGTH', Date.now(articles[2].createdAt));
       res.status(200).json({
         message: 'Success',
         articles: articles,
