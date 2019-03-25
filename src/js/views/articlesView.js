@@ -2,10 +2,10 @@ import { elements } from './elements';
 import $ from 'jquery';
 
 const appendElement = (elementPath, element) => {
-  elementPath.fadeOut(550, function() {
+  elementPath.fadeOut(500, function() {
     $(elementPath)
       .append(element)
-      .fadeIn(550);
+      .fadeIn(500);
   });
 };
 
@@ -84,26 +84,6 @@ const renderButtons = (page, numResults, resPerPage) => {
     $('.footer-pagination'),
     `<div class="page-text">Page ${page} of ${pages}</div>`
   );
-  // document
-  //   .querySelector('.pagination-btns')
-  //   .insertAdjacentHTML(
-  //     'beforeend',
-  //     '<div class="page-text">Page 1 of 20</div>'
-  //   );
-
-  // document
-  //   .querySelector('.pagination-btns')
-  //   .insertAdjacentHTML('beforeend', finalButton);
-
-  // document
-  //   .querySelector('.footer-pagination')
-  //   .insertAdjacentHTML('beforeend', finalButton);
-  // document
-  //   .querySelector('.footer-pagination')
-  //   .insertAdjacentHTML(
-  //     'beforeend',
-  //     '<div class="page-text">Page 1 of 20</div>'
-  //   );
 };
 
 const renderHeaders = (category, totalArticles) => {

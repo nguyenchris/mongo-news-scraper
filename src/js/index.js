@@ -11,7 +11,37 @@ import User from './models/user';
 import Article from './models/article';
 import { invalidCredentials, ajaxError } from './views/errorViews';
 
+// Global state
 const state = {};
+
+// Calls API to get all articles stored in database and renders to ui
+const getArticles = async (category, page, isScrape) => {
+  state.article = new Article(category);
+  if (!isScrape) {
+    resetPagination();
+    resetHeaders();
+    elements.articlesContainerTop.empty();
+    renderLoader(elements.articlesContainerTop);
+  }
+  try {
+    await state.article.getArticles(page);
+    clearLoader();
+    console.log('STATE', state.article.articles);
+    renderArticlesView(
+      state.article.articles,
+      page,
+      state.article.totalArticles,
+      state.article.category
+    );
+  } catch (err) {
+    elements.articlesContainerTop.empty();
+    resetPagination();
+    resetHeaders();
+    clearLoader();
+    ajaxError('Unable to get articles.');
+    console.log(err);
+  }
+};
 
 // Scrape for new articles
 const scrapeArticles = async category => {
@@ -33,34 +63,6 @@ const scrapeArticles = async category => {
   }
 };
 
-const getArticles = async (category, page, isScrape) => {
-  state.article = new Article(category);
-  if (!isScrape) {
-    resetPagination();
-    resetHeaders();
-    elements.articlesContainerTop.empty();
-    renderLoader(elements.articlesContainerTop);
-  }
-  try {
-    await state.article.getArticles(page);
-    clearLoader();
-    console.log(state.article.articles[0]);
-    renderArticlesView(
-      state.article.articles,
-      page,
-      state.article.totalArticles,
-      state.article.category
-    );
-  } catch (err) {
-    elements.articlesContainerTop.empty();
-    resetPagination();
-    resetHeaders();
-    clearLoader();
-    ajaxError('Unable to get articles.');
-    console.log(err);
-  }
-};
-
 // Listens for which page button was clicked and calls getArticles to render articles
 elements.pagination.on('click', function(e) {
   const clickedBtn = $(e.target);
@@ -70,12 +72,12 @@ elements.pagination.on('click', function(e) {
   }
 });
 
-// Determines which cateogry was selected
+// Determines which category was selected
 elements.category.on('click', function(e) {
   let click = $(this);
   if (click.hasClass('category-btn')) {
     const category = click.data('category');
-    return scrapeArticles(category);
+    scrapeArticles(category);
   }
 });
 

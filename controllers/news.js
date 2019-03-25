@@ -95,15 +95,17 @@ exports.getNews = (req, res, next) => {
   const perPage = 9;
   let totalArticles;
   db.Article.find({ category: category })
-    .countDocuments()
+    .sort({ createdAt: -1 })
+    .count()
     .then(count => {
       console.log(count);
       totalArticles = count;
-      return db.Article.find()
+      return db.Article.find({ category: category })
         .skip((currentPage - 1) * perPage)
         .limit(perPage);
     })
     .then(articles => {
+      console.log('LENGTH', Date.now(articles[2].createdAt));
       res.status(200).json({
         message: 'Success',
         articles: articles,
