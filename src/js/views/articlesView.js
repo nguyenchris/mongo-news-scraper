@@ -72,13 +72,37 @@ const renderButtons = (page, numResults, resPerPage) => {
   }
 
   let finalButton = `<div class="page-btn-wrapper">${button}</div>`;
+  document
+    .querySelector('.pagination-btns')
+    .insertAdjacentHTML(
+      'beforeend',
+      '<div class="page-text">Page 1 of 20</div>'
+    );
 
-  document.querySelector('.pagination-btns').innerHTML = finalButton;
+  document
+    .querySelector('.pagination-btns')
+    .insertAdjacentHTML('beforeend', finalButton);
 };
 
-export const renderArticlesView = (articles, page = 1, totalArticles) => {
+const renderHeaders = (category, totalArticles) => {
+  $('.category-title').text(`/ ${category}`);
+  $('.num-articles').text(`Total Articles: ${totalArticles}`);
+};
+
+export const resetHeaders = () => {
+  $('.catgeory-title').text('');
+  $('.num-articles').text('');
+};
+
+export const renderArticlesView = (
+  articles,
+  page = 1,
+  totalArticles,
+  category
+) => {
   // const start = (page - 1) * resPerPage;
   // const end = page * resPerPage;
   renderButtons(page, totalArticles, 9);
   articles.forEach(renderArticles);
+  renderHeaders(category, totalArticles);
 };

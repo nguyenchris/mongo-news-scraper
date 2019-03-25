@@ -1,15 +1,18 @@
 import $ from 'jquery';
 import Scrape from './models/scrape';
 import { elements } from './views/elements';
-import { renderArticlesView } from './views/articlesView';
+import { renderArticlesView, resetHeaders } from './views/articlesView';
 import { renderLoader, clearLoader } from './views/loader-view';
 import User from './models/user';
 import Article from './models/article';
 import { invalidCredentials, ajaxError } from './views/errorViews';
 
+const state = {};
+
 // Scrape for new articles
 const scrapeArticles = async category => {
   const scrape = new Scrape(category);
+  resetHeaders();
   elements.paginationWrap.empty();
   elements.articlesContainerTop.empty();
   renderLoader(elements.articlesContainerTop);
@@ -25,16 +28,23 @@ const scrapeArticles = async category => {
 };
 
 const getArticles = async (category, page, isScrape) => {
-  const article = new Article(category);
+  state.article = new Article(category);
   if (!isScrape) {
     elements.articlesContainerTop.empty();
     elements.paginationWrap.empty();
     renderLoader(elements.articlesContainerTop);
+    resetHeaders();
   }
   try {
-    await article.getArticles(page);
+    await state.article.getArticles(page);
     clearLoader();
-    renderArticlesView(article.articles, page, article.totalArticles);
+    console.log(state.article.articles[0]);
+    renderArticlesView(
+      state.article.articles,
+      page,
+      state.article.totalArticles,
+      state.article.category
+    );
   } catch (err) {
     elements.articlesContainerTop.empty();
     elements.paginationWrap.empty();
@@ -43,6 +53,15 @@ const getArticles = async (category, page, isScrape) => {
     console.log(err);
   }
 };
+
+// Listens for which page button was clicked and calls getArticles to render articles
+elements.paginationWrap.on('click', function(e) {
+  const clickedBtn = $(e.target);
+  if (clickedBtn.hasClass('page-btn')) {
+    const page = clickedBtn.data('goto');
+    getArticles(state.article.category, page);
+  }
+});
 
 // Determines which cateogry was selected
 elements.category.on('click', function(e) {

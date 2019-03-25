@@ -10,5 +10,6 @@ export const elements = {
   formConfirm: $('#confirm'),
   formSubmit: $('.submit-button'),
   formFail: $('.w-form-fail'),
-  paginationWrap: $('.pagination-btns')
+  paginationWrap: $('.pagination-btns'),
+  pageBtn: $('.page-btn')
 };
