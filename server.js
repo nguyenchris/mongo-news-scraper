@@ -11,8 +11,8 @@ const db = require('./models/index');
 const newsRoutes = require('./routes/news');
 const userRoutes = require('./routes/user');
 const indexRoute = require('./routes/index-route');
-const Promise = require('bluebird');
-Promise.promisifyAll(require('mongoose'));
+// const Promise = require('bluebird');
+// Promise.promisifyAll(require('mongoose'));
 
 const app = express();
 
