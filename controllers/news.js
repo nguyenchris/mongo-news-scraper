@@ -89,29 +89,31 @@ exports.getScrape = (req, res, next) => {
     });
 };
 
-// exports.getNews = (req, res, next) => {
-//   const currentPage = req.query.page || 1;
-//   const perPage = 10;
-//   let totalItems;
-//   db.Article.find()
-//     .countDocuments()
-//     .then(count => {
-//       totalItems = count;
-//       return Post.find()
-//         .skip((currentPage - 1) * perPage)
-//         .limit(perPage);
-//     })
-//     .then(posts => {
-//       res.status(200).json({
-//         message: 'Fetched posts successfully.',
-//         posts: posts,
-//         totalItems: totalItems
-//       });
-//     })
-//     .catch(err => {
-//       if (!err.statusCode) {
-//         err.statusCode = 500;
-//       }
-//       next(err);
-//     });
-// };
+exports.getNews = (req, res, next) => {
+  const currentPage = req.query.page || 1;
+  const category = req.params.category;
+  const perPage = 9;
+  let totalArticles;
+  db.Article.find({ category: category })
+    .countDocuments()
+    .then(count => {
+      console.log(count);
+      totalArticles = count;
+      return db.Article.find()
+        .skip((currentPage - 1) * perPage)
+        .limit(perPage);
+    })
+    .then(articles => {
+      res.status(200).json({
+        message: 'Success',
+        articles: articles,
+        totalArticles: totalArticles
+      });
+    })
+    .catch(err => {
+      if (!err.statusCode) {
+        err.statusCode = 500;
+      }
+      next(err);
+    });
+};

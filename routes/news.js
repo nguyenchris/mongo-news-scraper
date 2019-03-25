@@ -1,9 +1,9 @@
 const express = require('express');
-const db = require('../models/index');
 const newsController = require('../controllers/news');
 const router = express.Router();
 const isAuth = require('../middleware/is-auth');
 
 router.get('/scrape/:category', isAuth, newsController.getScrape);
+router.get('/:category', isAuth, newsController.getNews);
 
 module.exports = router;

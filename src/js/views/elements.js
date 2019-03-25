@@ -9,5 +9,6 @@ export const elements = {
   formPassword: $('#password'),
   formConfirm: $('#confirm'),
   formSubmit: $('.submit-button'),
-  formFail: $('.w-form-fail')
+  formFail: $('.w-form-fail'),
+  paginationWrap: $('.pagination-btns')
 };

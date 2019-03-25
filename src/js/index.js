@@ -4,24 +4,47 @@ import { elements } from './views/elements';
 import { renderArticlesView } from './views/articlesView';
 import { renderLoader, clearLoader } from './views/loader-view';
 import User from './models/user';
-import { invalidCredentials } from './views/errorViews';
+import Article from './models/article';
+import { invalidCredentials, ajaxError } from './views/errorViews';
 
+// Scrape for new articles
 const scrapeArticles = async category => {
   const scrape = new Scrape(category);
+  elements.paginationWrap.empty();
   elements.articlesContainerTop.empty();
   renderLoader(elements.articlesContainerTop);
   try {
     await scrape.scrapeForArticles();
-    clearLoader();
-    renderArticlesView(scrape.scrapes);
+    getArticles(category, 1, true);
   } catch (err) {
     elements.articlesContainerTop.empty();
+    clearLoader();
+    ajaxError('Unable to get articles.');
     console.log(err);
   }
 };
 
-// const getArticles =
+const getArticles = async (category, page, isScrape) => {
+  const article = new Article(category);
+  if (!isScrape) {
+    elements.articlesContainerTop.empty();
+    elements.paginationWrap.empty();
+    renderLoader(elements.articlesContainerTop);
+  }
+  try {
+    await article.getArticles(page);
+    clearLoader();
+    renderArticlesView(article.articles, page, article.totalArticles);
+  } catch (err) {
+    elements.articlesContainerTop.empty();
+    elements.paginationWrap.empty();
+    clearLoader();
+    ajaxError('Unable to get articles.');
+    console.log(err);
+  }
+};
 
+// Determines which cateogry was selected
 elements.category.on('click', function(e) {
   let click = $(this);
   if (click.hasClass('category-btn')) {
@@ -30,6 +53,7 @@ elements.category.on('click', function(e) {
   }
 });
 
+// Keyup listener for submitting login/signup form
 $('.form-wrap').keyup(function(e) {
   e.preventDefault();
   const keycode = e.keyCode ? e.keyCode : e.which;
@@ -41,6 +65,7 @@ $('.form-wrap').keyup(function(e) {
   }
 });
 
+// Click listener for login/submit form
 elements.formSubmit.on('click', function(e) {
   e.preventDefault();
   const isLogin = $(this)
@@ -49,6 +74,7 @@ elements.formSubmit.on('click', function(e) {
   checkForm(isLogin);
 });
 
+// Checks which form is being submitted and validates input before sending request
 function checkForm(isLogin) {
   const user = {
     email: elements.formEmail.val().trim(),

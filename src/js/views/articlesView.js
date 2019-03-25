@@ -76,9 +76,9 @@ const renderButtons = (page, numResults, resPerPage) => {
   document.querySelector('.pagination-btns').innerHTML = finalButton;
 };
 
-export const renderArticlesView = (articles, page = 1, resPerPage = 9) => {
-  const start = (page - 1) * resPerPage;
-  const end = page * resPerPage;
-  renderButtons(page, articles.length, resPerPage);
-  articles.slice(start, end).forEach(renderArticles);
+export const renderArticlesView = (articles, page = 1, totalArticles) => {
+  // const start = (page - 1) * resPerPage;
+  // const end = page * resPerPage;
+  renderButtons(page, totalArticles, 9);
+  articles.forEach(renderArticles);
 };
