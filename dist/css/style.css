@@ -1882,6 +1882,9 @@ body {
   color: #000;
   font-size: 14px;
   line-height: 20px;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
 }
 
 h1 {
@@ -3048,6 +3051,10 @@ a.summary {
   transition: opacity 300ms ease, color 300ms ease;
 }
 
+.footer-pagination {
+  margin-top: 15px;
+}
+
 .section-title-text {
   margin-bottom: 20px;
   font-family: 'Libre Franklin', sans-serif;
@@ -3391,6 +3398,16 @@ a.cc-footer {
   -webkit-flex: 1;
   -ms-flex: 1;
   flex: 1;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.main-footer {
+  margin-top: auto;
 }
 
 .author-image-wrapper {

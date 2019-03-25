@@ -2,10 +2,10 @@ import { elements } from './elements';
 import $ from 'jquery';
 
 const appendElement = (elementPath, element) => {
-  elementPath.fadeOut(500, function() {
+  elementPath.fadeOut(550, function() {
     $(elementPath)
       .append(element)
-      .fadeIn(500);
+      .fadeIn(550);
   });
 };
 
@@ -72,16 +72,38 @@ const renderButtons = (page, numResults, resPerPage) => {
   }
 
   let finalButton = `<div class="page-btn-wrapper">${button}</div>`;
-  document
-    .querySelector('.pagination-btns')
-    .insertAdjacentHTML(
-      'beforeend',
-      '<div class="page-text">Page 1 of 20</div>'
-    );
 
-  document
-    .querySelector('.pagination-btns')
-    .insertAdjacentHTML('beforeend', finalButton);
+  appendElement(
+    $('.pagination-btns'),
+    `<div class="page-text">Page ${page} of ${pages}</div>`
+  );
+  appendElement($('.pagination-btns'), finalButton);
+
+  appendElement($('.footer-pagination'), finalButton);
+  appendElement(
+    $('.footer-pagination'),
+    `<div class="page-text">Page ${page} of ${pages}</div>`
+  );
+  // document
+  //   .querySelector('.pagination-btns')
+  //   .insertAdjacentHTML(
+  //     'beforeend',
+  //     '<div class="page-text">Page 1 of 20</div>'
+  //   );
+
+  // document
+  //   .querySelector('.pagination-btns')
+  //   .insertAdjacentHTML('beforeend', finalButton);
+
+  // document
+  //   .querySelector('.footer-pagination')
+  //   .insertAdjacentHTML('beforeend', finalButton);
+  // document
+  //   .querySelector('.footer-pagination')
+  //   .insertAdjacentHTML(
+  //     'beforeend',
+  //     '<div class="page-text">Page 1 of 20</div>'
+  //   );
 };
 
 const renderHeaders = (category, totalArticles) => {
@@ -90,8 +112,13 @@ const renderHeaders = (category, totalArticles) => {
 };
 
 export const resetHeaders = () => {
-  $('.catgeory-title').text('');
-  $('.num-articles').text('');
+  $('.catgeory-title').empty();
+  $('.num-articles').empty();
+};
+
+export const resetPagination = () => {
+  elements.paginationWrap.empty();
+  elements.footerPagination.empty();
 };
 
 export const renderArticlesView = (

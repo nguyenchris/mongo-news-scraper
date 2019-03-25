@@ -1,7 +1,11 @@
 import $ from 'jquery';
 import Scrape from './models/scrape';
 import { elements } from './views/elements';
-import { renderArticlesView, resetHeaders } from './views/articlesView';
+import {
+  renderArticlesView,
+  resetHeaders,
+  resetPagination
+} from './views/articlesView';
 import { renderLoader, clearLoader } from './views/loader-view';
 import User from './models/user';
 import Article from './models/article';
@@ -13,7 +17,7 @@ const state = {};
 const scrapeArticles = async category => {
   const scrape = new Scrape(category);
   resetHeaders();
-  elements.paginationWrap.empty();
+  resetPagination();
   elements.articlesContainerTop.empty();
   renderLoader(elements.articlesContainerTop);
   try {
@@ -21,6 +25,8 @@ const scrapeArticles = async category => {
     getArticles(category, 1, true);
   } catch (err) {
     elements.articlesContainerTop.empty();
+    resetHeaders();
+    resetPagination();
     clearLoader();
     ajaxError('Unable to get articles.');
     console.log(err);
@@ -30,10 +36,10 @@ const scrapeArticles = async category => {
 const getArticles = async (category, page, isScrape) => {
   state.article = new Article(category);
   if (!isScrape) {
-    elements.articlesContainerTop.empty();
-    elements.paginationWrap.empty();
-    renderLoader(elements.articlesContainerTop);
+    resetPagination();
     resetHeaders();
+    elements.articlesContainerTop.empty();
+    renderLoader(elements.articlesContainerTop);
   }
   try {
     await state.article.getArticles(page);
@@ -47,7 +53,8 @@ const getArticles = async (category, page, isScrape) => {
     );
   } catch (err) {
     elements.articlesContainerTop.empty();
-    elements.paginationWrap.empty();
+    resetPagination();
+    resetHeaders();
     clearLoader();
     ajaxError('Unable to get articles.');
     console.log(err);
@@ -55,7 +62,7 @@ const getArticles = async (category, page, isScrape) => {
 };
 
 // Listens for which page button was clicked and calls getArticles to render articles
-elements.paginationWrap.on('click', function(e) {
+elements.pagination.on('click', function(e) {
   const clickedBtn = $(e.target);
   if (clickedBtn.hasClass('page-btn')) {
     const page = clickedBtn.data('goto');

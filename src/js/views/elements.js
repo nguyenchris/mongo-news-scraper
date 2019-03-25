@@ -11,5 +11,7 @@ export const elements = {
   formSubmit: $('.submit-button'),
   formFail: $('.w-form-fail'),
   paginationWrap: $('.pagination-btns'),
-  pageBtn: $('.page-btn')
+  pageBtn: $('.page-btn'),
+  footerPagination: $('.footer-pagination'),
+  pagination: $('.pagination')
 };
