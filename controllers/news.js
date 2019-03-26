@@ -96,11 +96,11 @@ exports.getNews = (req, res, next) => {
   let totalArticles;
   db.Article.find({ category: category })
     .sort({ createdAt: -1 })
-    .count()
+    .countDocuments()
     .then(count => {
-      console.log(count);
       totalArticles = count;
       return db.Article.find({ category: category })
+        .populate('comments')
         .skip((currentPage - 1) * perPage)
         .limit(perPage);
     })
@@ -118,3 +118,7 @@ exports.getNews = (req, res, next) => {
       next(err);
     });
 };
+
+// exports.getComments((req, res, next) => {
+
+// })

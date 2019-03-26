@@ -13,5 +13,6 @@ export const elements = {
   paginationWrap: $('.pagination-btns'),
   pageBtn: $('.page-btn'),
   footerPagination: $('.footer-pagination'),
-  pagination: $('.pagination')
+  pagination: $('.pagination'),
+  viewComments: $('.view-comments')
 };

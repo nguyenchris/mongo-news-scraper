@@ -4,7 +4,9 @@ import { elements } from './views/elements';
 import {
   renderArticlesView,
   resetHeaders,
-  resetPagination
+  resetPagination,
+  createBackButton,
+  renderCurrentArticle
 } from './views/articlesView';
 import { renderLoader, clearLoader } from './views/loader-view';
 import User from './models/user';
@@ -63,6 +65,22 @@ const scrapeArticles = async category => {
   }
 };
 
+const getCommentsView = id => {
+  resetHeaders();
+  resetPagination();
+  elements.articlesContainerTop.empty();
+  const chosenArticle = state.article.articles.find(obj => {
+    return obj._id == id;
+  });
+  let image = chosenArticle.image;
+  let modImage = '';
+  image.includes('threeByTwoSmallAt2X')
+    ? (modImage = image.replace('threeByTwoSmallAt2X', 'threeByTwoMediumAt2X'))
+    : (modImage = image);
+  createBackButton();
+  renderCurrentArticle(chosenArticle, modImage);
+};
+
 // Listens for which page button was clicked and calls getArticles to render articles
 elements.pagination.on('click', function(e) {
   const clickedBtn = $(e.target);
@@ -80,6 +98,18 @@ elements.category.on('click', function(e) {
     scrapeArticles(category);
   }
 });
+
+elements.articlesContainerTop.on(
+  'click',
+  '.view-comments, .all-comments, .category',
+  function(e) {
+    let event = $(this);
+    if (event.hasClass('view-comments') || event.hasClass('all-comments')) {
+      const _id = event.data('_id');
+      getCommentsView(_id);
+    }
+  }
+);
 
 // Keyup listener for submitting login/signup form
 $('.form-wrap').keyup(function(e) {
