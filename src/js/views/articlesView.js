@@ -35,7 +35,7 @@ export const renderCurrentArticle = (article, image) => {
   appendElement(elements.articlesContainerTop, markup);
 };
 
-export const renderCommentsForm = id => {
+const renderCommentsForm = id => {
   let markup = `
   <div class="form-area">
     <textarea rows="4" cols="70" name="comment" id="comment" placeholder="Comment"></textarea>
@@ -44,16 +44,18 @@ export const renderCommentsForm = id => {
     <input class="submit-button comment-submit" type="submit" data-_id="${id}" name="submit" value="Add Comment">
   </div>
   `;
-  appendElement($('#form-area'), markup);
+  appendElement($('#comment_form'), markup);
 };
 
-const renderComment = comment => {
+export const renderComment = comment => {
+  const { creator, content } = comment;
+  // Create Date
   let markup = `
   <div class="comments">
     <div id="comments-container">
       <div class="comment">
-        <div class="comment-user"><span class="user-details"><span class="username">${creator}</span><span>on
-            </span><span>${date}</span></span>
+        <div class="comment-user"><span class="user-details"><span class="username">${creator} </span><span>on
+            </span><span></span></span>
         </div>
         <div class="comment-text">
           ${content}
@@ -175,7 +177,7 @@ export const resetPagination = () => {
 
 export const resetComments = () => {
   $('.comments-section').empty();
-  $('.comment-form').empty();
+  $('#comment_form').empty();
 };
 
 export const renderCommentsView = (comments, id) => {
@@ -185,10 +187,10 @@ export const renderCommentsView = (comments, id) => {
     comments.forEach(el => {
       renderComment(el, id);
     });
-    renderCommentsForm(id);
   } else {
     commentSection.append('<h4>No Comments Available</h4>');
   }
+  renderCommentsForm(id);
 };
 
 export const renderArticlesView = (

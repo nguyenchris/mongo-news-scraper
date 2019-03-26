@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { invalidCredentials } from '../views/errorViews';
+import { renderComment } from '../views/articlesView';
 
 export default class User {
   constructor(name, email, password) {
@@ -30,6 +31,25 @@ export default class User {
       .catch(err => {
         if (err.response) {
           return invalidCredentials(err.response.data.error);
+        }
+      });
+  }
+
+  static createComment(content, articleId) {
+    axios
+      .post('/comment', { content: content, articleId: articleId })
+      .then(result => {
+        if (result.status == 201) {
+          console.log(result.data);
+          return renderComment({
+            content: result.data.comment.content,
+            creator: result.data.creator.name
+          });
+        }
+      })
+      .catch(err => {
+        if (err.response) {
+          console.log(err);
         }
       });
   }

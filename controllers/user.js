@@ -20,6 +20,49 @@ exports.getSignup = (req, res, next) => {
   });
 };
 
+exports.createComment = (req, res, next) => {
+  const content = req.body.content;
+  const articleId = req.body.articleId;
+
+  let creator;
+  let commentArticle;
+  const newComment = new db.Comment({
+    content: content,
+    creator: req.user._id
+  });
+  newComment
+    .save()
+    .then(result => {
+      return db.User.findById(req.user._id);
+    })
+    .then(user => {
+      creator = user;
+      user.comments.push(newComment);
+      return user.save();
+    })
+    .then(result => {
+      return db.Article.findById({ _id: articleId });
+    })
+    .then(article => {
+      commentArticle = article;
+      article.comments.push(newComment);
+      return article.save();
+    })
+    .then(result => {
+      res.status(201).json({
+        comment: newComment,
+        article: commentArticle,
+        creator: { _id: creator._id, name: creator.name }
+      });
+    })
+    .catch(err => {
+      if (!err.statusCode) {
+        err.statusCode = 500;
+      }
+      next(err);
+    });
+};
+
 exports.postLogin = (req, res, next) => {
   const email = req.body.email;
   const password = req.body.password;

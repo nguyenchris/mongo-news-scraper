@@ -8,7 +8,8 @@ import {
   createBackButton,
   renderCurrentArticle,
   renderCommentsView,
-  resetComments
+  resetComments,
+  renderComment
 } from './views/articlesView';
 import { renderLoader, clearLoader } from './views/loader-view';
 import User from './models/user';
@@ -24,10 +25,10 @@ const getArticles = async (category, page, isScrape) => {
   if (!isScrape) {
     resetPagination();
     resetHeaders();
-    resetComments();
     elements.articlesContainerTop.empty();
     renderLoader(elements.articlesContainerTop);
   }
+  resetComments();
   try {
     await state.article.getArticles(page);
     clearLoader();
@@ -89,7 +90,16 @@ const getChosenArticleView = id => {
 
 elements.commentForm.on('click', '.comment-submit', function(e) {
   const _id = $(this).data('_id');
-  console.log(_id);
+  const commentText = $('#comment_form')
+    .children('.form-area')
+    .children('#comment')
+    .val()
+    .trim();
+  if (commentText == '') {
+    return;
+  }
+  User.createComment(commentText, _id);
+  // renderComment(commentText);
 });
 
 // Listens for which page button was clicked and calls getArticles to render articles
@@ -130,12 +140,13 @@ $('.category-title').on('click', function(e) {
   resetPagination();
   resetHeaders();
   resetComments();
-  renderArticlesView(
-    state.article.articles,
-    state.article.page,
-    state.article.totalArticles,
-    state.article.category
-  );
+  getArticles(state.article.category, state.article.page);
+  // renderArticlesView(
+  //   state.article.articles,
+  //   state.article.page,
+  //   state.article.totalArticles,
+  //   state.article.category
+  // );
 });
 
 // Keyup listener for submitting login/signup form

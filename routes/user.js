@@ -26,6 +26,8 @@ router.post(
   userController.postSignup
 );
 
+router.post('/comment', userController.createComment);
+
 router.get('/logout', userController.getLogout);
 
 module.exports = router;

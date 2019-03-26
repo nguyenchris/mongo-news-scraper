@@ -89,6 +89,8 @@ exports.getScrape = (req, res, next) => {
     });
 };
 
+// Find objectId name of user
+
 exports.getNews = (req, res, next) => {
   const currentPage = req.query.page || 1;
   const category = req.params.category;
@@ -118,7 +120,3 @@ exports.getNews = (req, res, next) => {
       next(err);
     });
 };
-
-// exports.getComments((req, res, next) => {
-
-// })

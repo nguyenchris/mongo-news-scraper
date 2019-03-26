@@ -15,5 +15,5 @@ export const elements = {
   footerPagination: $('.footer-pagination'),
   pagination: $('.pagination'),
   viewComments: $('.view-comments'),
-  commentForm: $('#comment-form')
+  commentForm: $('#comment_form')
 };
