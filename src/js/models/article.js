@@ -1,11 +1,12 @@
 import axios from 'axios';
+import { throws } from 'assert';
 
 export default class Article {
-  constructor(category) {
+  constructor(category, page) {
     this.category = category;
+    this.page = page;
   }
   async getArticles(pageNum) {
-    if (!pageNum) return (pageNum = '');
     try {
       const res = await axios(`/news/${this.category}?page=${pageNum}`);
       console.log('AJAX', res.data.articles);

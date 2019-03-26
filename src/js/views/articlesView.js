@@ -15,7 +15,7 @@ export const renderCurrentArticle = (article, image) => {
         <div class="title-section">
             <div class="container cc-center">
               <div class="text-container">
-                <a href="${link}" class="section-title-text w-inline-block">
+                <a class="section-title-text w-inline-block">
                   <div class="post-category-text category">${category}</div>
                 </a>
                 <h1 class="h1">${title}</h1>
@@ -52,16 +52,16 @@ const renderArticles = article => {
                   src="${image}"
                   alt="${title}"/></a>
               <div class="post-info-text">
-                <a href="" class="category-link category" target="_blank">${category}</a>
+                <a class="category-link category">${category}</a>
                 <a href="${link}" class="post-title w-inline-block" target="_blank">
                   <h2 class="h3">${title}</h2>
                 </a>
-                <a href="" class="post-title w-inline-block summary" target="_blank">
+                <a class="post-title w-inline-block summary">
                   <h3 class="h4">${summary}</h3>
                 </a>
                 <div class="post-author-text cc-small-thumbnail">
                   <div class="post-author cc-top-margin">By</div>
-                  <a href="" class="post-author" target="_blank">${author}</a>
+                  <a class="post-author">${author}</a>
                 </div>
               </div>
                 <div class="comments">

@@ -18,7 +18,7 @@ const state = {};
 
 // Calls API to get all articles stored in database and renders to ui
 const getArticles = async (category, page, isScrape) => {
-  state.article = new Article(category);
+  state.article = new Article(category, page);
   if (!isScrape) {
     resetPagination();
     resetHeaders();
@@ -106,10 +106,25 @@ elements.articlesContainerTop.on(
     let event = $(this);
     if (event.hasClass('view-comments') || event.hasClass('all-comments')) {
       const _id = event.data('_id');
-      getCommentsView(_id);
+      return getCommentsView(_id);
+    }
+    if (event.hasClass('category')) {
+      return scrapeArticles(event.text().trim());
     }
   }
 );
+
+$('.category-title').on('click', function(e) {
+  elements.articlesContainerTop.empty();
+  resetPagination();
+  resetHeaders();
+  renderArticlesView(
+    state.article.articles,
+    state.article.page,
+    state.article.totalArticles,
+    state.article.category
+  );
+});
 
 // Keyup listener for submitting login/signup form
 $('.form-wrap').keyup(function(e) {

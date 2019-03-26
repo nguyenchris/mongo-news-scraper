@@ -2336,6 +2336,11 @@ figcaption {
   transition: 200ms ease;
 }
 
+.footer-back-btn {
+  /* margin: auto; */
+  margin-top: 50px;
+}
+
 .back-btn-wrap {
   display: -webkit-box;
   display: -webkit-flex;
@@ -2355,6 +2360,105 @@ figcaption {
   width: 220px;
   /* margin: auto; */
 }
+
+/* Coments */
+
+#comment_form {
+  display: block;
+}
+
+.comments-section {
+  margin-top: 40px;
+  /* margin: 0 15px; */
+  /* position: absolute;
+  left: 50%; */
+  /* -webkit-transform: translate(-50%, 0);
+  transform: translate(-50%, 0); */
+  /* top: 5%; */
+  width: 70%;
+  /* margin: auto; */
+  /* margin-bottom: 10%; */
+  display: block;
+}
+.comments-section h4 {
+  margin: 0;
+  margin-top: 40px;
+  margin-bottom: 10px;
+  font-weight: bold;
+  font-size: 1.2rem;
+  color: white;
+  border-bottom: 1px solid #666;
+  padding-bottom: 5px;
+}
+.comments-section .comments {
+  color: white;
+}
+.comments-section .comments h4 {
+  border: 0;
+}
+.comments-section .comment {
+  background: #28282b;
+  padding: 20px;
+  font-size: 15px;
+  margin-bottom: 20px;
+}
+.comments-section .comment blockquote {
+  color: #eee;
+  padding: 1em;
+  border-left: 2px solid #76daff;
+  background: rgba(0, 0, 0, 0.05);
+}
+.comments-section .comment code {
+  font-family: Menlo, Monaco, monospace;
+  background: rgba(0, 0, 0, 0.2);
+  padding: 2px 5px;
+  margin: 0 2px;
+  border-radius: 2px;
+}
+.comments-section .comment .box {
+  background: #1d1f20;
+  padding: 20px;
+}
+.comments-section .comment .box pre {
+  overflow: auto;
+  margin: 0;
+}
+.comments-section .comment .box pre code {
+  background: transparent;
+}
+.comments-section .comment .box + .box {
+  padding-top: 0px;
+}
+.comments-section .comment a {
+  color: #76daff;
+  text-decoration: none;
+}
+.comments-section .comment .comment-user {
+  border-bottom: 1px solid #555;
+  padding: 10px 45px 20px;
+  display: flex;
+  align-items: center;
+}
+.comments-section .comment .comment-user .avatar img {
+  width: 35px;
+  height: 35px;
+}
+.comments-section .comment .comment-user .username {
+  color: #76daff;
+}
+.comments-section .comment .comment-user .user-details {
+  color: #666;
+  margin-left: 10px;
+}
+.comments-section .comment .comment-user .user-details span:last-child {
+  color: #999;
+  font-size: 80%;
+}
+.comments-section .comment .comment-text {
+  padding: 10px 45px 20px;
+}
+
+/*  */
 
 .back-btn:hover {
   background-color: #777;
@@ -2704,6 +2808,10 @@ figcaption {
 
 .category-link:hover {
   text-decoration: underline;
+}
+
+.category {
+  cursor: pointer;
 }
 
 .h2 {
@@ -3198,6 +3306,14 @@ a.summary {
   line-height: 60px;
   font-weight: 400;
   text-transform: uppercase;
+}
+
+a.title-a.a-title {
+  text-decoration: none;
+}
+
+.title-a > h1 {
+  text-decoration: none;
 }
 
 .text-container {

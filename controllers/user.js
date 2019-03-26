@@ -3,6 +3,9 @@ const { validationResult } = require('express-validator/check');
 const db = require('../models/index');
 
 exports.getLogin = (req, res, next) => {
+  if (req.session.user) {
+    return res.redirect('/');
+  }
   res.render('login', {
     activeLogin: true,
     path: '/login',
