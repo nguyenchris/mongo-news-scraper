@@ -35,6 +35,36 @@ export const renderCurrentArticle = (article, image) => {
   appendElement(elements.articlesContainerTop, markup);
 };
 
+export const renderCommentsForm = id => {
+  let markup = `
+  <div class="form-area">
+    <textarea rows="4" cols="70" name="comment" id="comment" placeholder="Comment"></textarea>
+  </div>
+  <div>
+    <input class="submit-button comment-submit" type="submit" data-_id="${id}" name="submit" value="Add Comment">
+  </div>
+  `;
+  appendElement($('#form-area'), markup);
+};
+
+const renderComment = comment => {
+  let markup = `
+  <div class="comments">
+    <div id="comments-container">
+      <div class="comment">
+        <div class="comment-user"><span class="user-details"><span class="username">${creator}</span><span>on
+            </span><span>${date}</span></span>
+        </div>
+        <div class="comment-text">
+          ${content}
+        </div>
+      </div>
+    </div>
+  </div>
+  `;
+  appendElement($('.comments-section'), markup);
+};
+
 const renderArticles = article => {
   const {
     link,
@@ -48,7 +78,7 @@ const renderArticles = article => {
   } = article;
   let markup = `
               <div class="_3-collection-item w-dyn-item w-col w-col-3">
-              <a href="${link}" class="posts-image w-inline-block" target="_blank"><img
+              <a data-_id="${_id}"class="posts-image w-inline-block"><img
                   src="${image}"
                   alt="${title}"/></a>
               <div class="post-info-text">
@@ -64,7 +94,7 @@ const renderArticles = article => {
                   <a class="post-author">${author}</a>
                 </div>
               </div>
-                <div class="comments">
+                <div class="comments-view">
                   <div class="post-author all-comments" data-_id="${_id}">
                     <span id="comments-num">${comments.length}</span>  Comments
                 </div>
@@ -141,6 +171,24 @@ export const resetHeaders = () => {
 export const resetPagination = () => {
   elements.paginationWrap.empty();
   elements.footerPagination.empty();
+};
+
+export const resetComments = () => {
+  $('.comments-section').empty();
+  $('.comment-form').empty();
+};
+
+export const renderCommentsView = (comments, id) => {
+  const commentSection = $('.comments-section');
+  commentSection.append('<h4>COMMENTS</h4>');
+  if (comments.length > 0) {
+    comments.forEach(el => {
+      renderComment(el, id);
+    });
+    renderCommentsForm(id);
+  } else {
+    commentSection.append('<h4>No Comments Available</h4>');
+  }
 };
 
 export const renderArticlesView = (

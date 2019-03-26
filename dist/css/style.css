@@ -2365,6 +2365,8 @@ figcaption {
 
 #comment_form {
   display: block;
+  margin: auto;
+  text-align: center;
 }
 
 .comments-section {
@@ -2375,20 +2377,34 @@ figcaption {
   /* -webkit-transform: translate(-50%, 0);
   transform: translate(-50%, 0); */
   /* top: 5%; */
-  width: 70%;
+  width: 50%;
   /* margin: auto; */
   /* margin-bottom: 10%; */
+  margin: auto;
   display: block;
 }
-.comments-section h4 {
-  margin: 0;
-  margin-top: 40px;
+
+.comment-submit {
+  cursor: pointer;
+}
+
+.form-area {
   margin-bottom: 10px;
+}
+
+textarea:focus {
+  outline-color: black;
+}
+
+.comments-section h4 {
+  margin-top: 80px;
+  margin-bottom: 20px;
   font-weight: bold;
   font-size: 1.2rem;
-  color: white;
+  color: black;
   border-bottom: 1px solid #666;
   padding-bottom: 5px;
+  /* text-align: center; */
 }
 .comments-section .comments {
   color: white;
@@ -2397,7 +2413,7 @@ figcaption {
   border: 0;
 }
 .comments-section .comment {
-  background: #28282b;
+  background: #1d1c1c;
   padding: 20px;
   font-size: 15px;
   margin-bottom: 20px;
@@ -2439,12 +2455,12 @@ figcaption {
   display: flex;
   align-items: center;
 }
-.comments-section .comment .comment-user .avatar img {
+/* .comments-section .comment .comment-user .avatar img {
   width: 35px;
   height: 35px;
-}
+} */
 .comments-section .comment .comment-user .username {
-  color: #76daff;
+  color: white;
 }
 .comments-section .comment .comment-user .user-details {
   color: #666;
@@ -2873,12 +2889,12 @@ figcaption {
   margin-top: 0px;
 }
 
-div.comments {
+div.comments-view {
   display: flex;
   justify-content: space-between;
 }
 
-div.comments .post-author {
+div.comments-view .post-author {
   margin-top: 10px;
   color: rgb(121, 121, 121);
   font-size: 11px;
@@ -2886,12 +2902,12 @@ div.comments .post-author {
   float: left;
 }
 
-div.comments .view-comments {
+div.comments-view .view-comments {
   float: right;
   transition: 0.3s ease;
 }
 
-div.comments .view-comments:hover {
+div.comments-view .view-comments:hover {
   color: black;
   transform: translateX(-8px);
 }

@@ -6,7 +6,9 @@ import {
   resetHeaders,
   resetPagination,
   createBackButton,
-  renderCurrentArticle
+  renderCurrentArticle,
+  renderCommentsView,
+  resetComments
 } from './views/articlesView';
 import { renderLoader, clearLoader } from './views/loader-view';
 import User from './models/user';
@@ -22,6 +24,7 @@ const getArticles = async (category, page, isScrape) => {
   if (!isScrape) {
     resetPagination();
     resetHeaders();
+    resetComments();
     elements.articlesContainerTop.empty();
     renderLoader(elements.articlesContainerTop);
   }
@@ -50,6 +53,7 @@ const scrapeArticles = async category => {
   const scrape = new Scrape(category);
   resetHeaders();
   resetPagination();
+  resetComments();
   elements.articlesContainerTop.empty();
   renderLoader(elements.articlesContainerTop);
   try {
@@ -65,7 +69,7 @@ const scrapeArticles = async category => {
   }
 };
 
-const getCommentsView = id => {
+const getChosenArticleView = id => {
   resetHeaders();
   resetPagination();
   elements.articlesContainerTop.empty();
@@ -79,7 +83,14 @@ const getCommentsView = id => {
     : (modImage = image);
   createBackButton();
   renderCurrentArticle(chosenArticle, modImage);
+  console.log(chosenArticle.comments);
+  renderCommentsView(chosenArticle.comments, id);
 };
+
+elements.commentForm.on('click', '.comment-submit', function(e) {
+  const _id = $(this).data('_id');
+  console.log(_id);
+});
 
 // Listens for which page button was clicked and calls getArticles to render articles
 elements.pagination.on('click', function(e) {
@@ -106,7 +117,7 @@ elements.articlesContainerTop.on(
     let event = $(this);
     if (event.hasClass('view-comments') || event.hasClass('all-comments')) {
       const _id = event.data('_id');
-      return getCommentsView(_id);
+      return getChosenArticleView(_id);
     }
     if (event.hasClass('category')) {
       return scrapeArticles(event.text().trim());
@@ -118,6 +129,7 @@ $('.category-title').on('click', function(e) {
   elements.articlesContainerTop.empty();
   resetPagination();
   resetHeaders();
+  resetComments();
   renderArticlesView(
     state.article.articles,
     state.article.page,
