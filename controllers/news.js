@@ -103,6 +103,7 @@ exports.getNews = (req, res, next) => {
       totalArticles = count;
       return db.Article.find({ category: category })
         .populate('comments')
+        .sort({ createdAt: -1 })
         .skip((currentPage - 1) * perPage)
         .limit(perPage);
     })
