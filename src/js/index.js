@@ -96,6 +96,10 @@ elements.commentForm.on('click', '.comment-submit', function(e) {
   if (commentText == '') {
     return;
   }
+  $('#comment_form')
+    .children('.form-area')
+    .children('#comment')
+    .val('');
   User.createComment(commentText, _id);
   // renderComment(commentText);
 });
