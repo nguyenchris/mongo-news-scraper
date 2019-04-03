@@ -2716,6 +2716,14 @@ textarea:focus {
   color: black;
 }
 
+.cur-article-title {
+  text-decoration: none;
+}
+
+.cur-article-title h1:hover {
+  color: grey;
+}
+
 .login-info-subtitle a:hover {
   color: grey;
 }

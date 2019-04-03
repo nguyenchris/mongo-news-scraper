@@ -19,7 +19,7 @@ export const renderCurrentArticle = (article, image) => {
                 <a class="section-title-text w-inline-block">
                   <div class="post-category-text category">${category}</div>
                 </a>
-                <h1 class="h1">${title}</h1>
+                <a href="${link}" class="cur-article-title"><h1 class="h1">${title}</h1></a>
                 <div class="post-author-text cc-center">
                   <a class="post-author">${author}</a>
                 </div>
@@ -27,9 +27,9 @@ export const renderCurrentArticle = (article, image) => {
             </div>
           </div>
           <div class="post-image">
-            <div class="container cc-post-image"><img
+            <div class="container cc-post-image"><a href="${link}"><img
                 src="${image}"
-                alt="${title}"/>
+                alt="${title}"/></a>
             </div>
           </div>
 `;
@@ -87,7 +87,7 @@ const renderArticles = article => {
                   src="${image}"
                   alt="${title}"/></a>
               <div class="post-info-text">
-                <a class="category-link category">${category}</a>
+                <a class="category-link category">LATEST NEWS / ${category}</a>
                 <a href="${link}" class="post-title w-inline-block" target="_blank">
                   <h2 class="h3">${title}</h2>
                 </a>
