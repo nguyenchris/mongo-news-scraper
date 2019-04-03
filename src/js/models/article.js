@@ -12,7 +12,6 @@ export default class Article {
       console.log('AJAX', res.data.articles);
       this.articles = res.data.articles;
       this.totalArticles = res.data.totalArticles;
-      console.log(this.articles);
     } catch (error) {
       console.log(error);
     }

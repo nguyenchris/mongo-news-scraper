@@ -141,12 +141,6 @@ $('.category-title').on('click', function(e) {
   resetHeaders();
   resetComments();
   getArticles(state.article.category, state.article.page);
-  // renderArticlesView(
-  //   state.article.articles,
-  //   state.article.page,
-  //   state.article.totalArticles,
-  //   state.article.category
-  // );
 });
 
 // Keyup listener for submitting login/signup form
