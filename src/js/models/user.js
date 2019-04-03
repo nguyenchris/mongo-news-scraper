@@ -40,10 +40,9 @@ export default class User {
       .post('/comment', { content: content, articleId: articleId })
       .then(result => {
         if (result.status == 201) {
-          console.log(result.data);
           return renderComment({
             content: result.data.comment.content,
-            creator: result.data.creator.name
+            creator: { name: result.data.creator.name }
           });
         }
       })

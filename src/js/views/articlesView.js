@@ -1,5 +1,6 @@
 import { elements } from './elements';
 import $ from 'jquery';
+import moment from 'moment';
 
 const appendElement = (elementPath, element) => {
   elementPath.fadeOut(500, function() {
@@ -48,14 +49,16 @@ const renderCommentsForm = id => {
 };
 
 export const renderComment = comment => {
-  const { creator, content } = comment;
+  const { creator, content, createdAt } = comment;
   // Create Date
   let markup = `
   <div class="comments">
     <div id="comments-container">
       <div class="comment">
-        <div class="comment-user"><span class="user-details"><span class="username">${creator} </span><span>on
-            </span><span></span></span>
+        <div class="comment-user"><span class="user-details"><span class="username">${
+          creator.name
+        } </span><span>
+            </span><span>${moment(createdAt).fromNow()}</span></span>
         </div>
         <div class="comment-text">
           ${content}
@@ -128,8 +131,6 @@ const createButton = (page, type) => {
 
 const renderButtons = (page, numResults, resPerPage) => {
   const pages = Math.ceil(numResults / resPerPage);
-  console.log(pages);
-  console.log(page);
   let button;
   if (page === 1 && pages >= 1) {
     // Only button to go to next page
@@ -187,8 +188,6 @@ export const renderCommentsView = (comments, id) => {
     comments.forEach(el => {
       renderComment(el, id);
     });
-  } else {
-    commentSection.append('<h4>No Comments Available</h4>');
   }
   renderCommentsForm(id);
 };

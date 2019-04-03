@@ -51,7 +51,7 @@ exports.createComment = (req, res, next) => {
     .then(result => {
       res.status(201).json({
         comment: newComment,
-        article: commentArticle,
+        article: result,
         creator: { _id: creator._id, name: creator.name }
       });
     })

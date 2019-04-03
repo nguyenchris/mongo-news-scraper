@@ -32,7 +32,6 @@ const getArticles = async (category, page, isScrape) => {
   try {
     await state.article.getArticles(page);
     clearLoader();
-    console.log('STATE', state.article.articles);
     renderArticlesView(
       state.article.articles,
       page,
@@ -84,7 +83,6 @@ const getChosenArticleView = id => {
     : (modImage = image);
   createBackButton();
   renderCurrentArticle(chosenArticle, modImage);
-  console.log(chosenArticle.comments);
   renderCommentsView(chosenArticle.comments, id);
 };
 

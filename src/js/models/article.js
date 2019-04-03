@@ -9,7 +9,6 @@ export default class Article {
   async getArticles(pageNum) {
     try {
       const res = await axios(`/news/${this.category}?page=${pageNum}`);
-      console.log('AJAX', res.data.articles);
       this.articles = res.data.articles;
       this.totalArticles = res.data.totalArticles;
     } catch (error) {
